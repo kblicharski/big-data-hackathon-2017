@@ -84,13 +84,14 @@ df2 = pd.DataFrame({
 # print(df.loc['20130102':'20130104', ['A', 'B']])
 
 # Dimension reduction
-# print(df.loc['20130102', ['A', 'B']])
+a = '20130102'
+print(df.loc[:, ['A', 'B']])
 
 # Scalar values
 # print(df.loc[dates[0], 'A'])
 # For faster scalar access
-print(df)
-print(df.at[dates[0], 'A'])
+# print(df)
+# print(df.at[dates[0], 'A'])
 
 # Selection by position
 # Will select the values in row 3
