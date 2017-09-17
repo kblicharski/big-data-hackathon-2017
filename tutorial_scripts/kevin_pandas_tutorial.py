@@ -89,7 +89,8 @@ df2 = pd.DataFrame({
 # Scalar values
 # print(df.loc[dates[0], 'A'])
 # For faster scalar access
-# print(df.at[dates[0], 'A'])
+print(df)
+print(df.at[dates[0], 'A'])
 
 # Selection by position
 # Will select the values in row 3
@@ -97,7 +98,7 @@ df2 = pd.DataFrame({
 
 # Integer slices
 # Will select the values in rows 4 and 5 and cols 1 and 2
-print(df.iloc[3:5, 0:2])
+# print(df.iloc[3:5, 0:2])
 
 
 
