@@ -5,12 +5,8 @@ from bokeh.sampledata.us_counties import data as us_counties
 from bokeh.plotting import figure, show, output_file
 from bokeh.models.widgets import Panel, Tabs
 from bokeh.io import output_file, show
-
-from bokeh.models import (
-    ColumnDataSource,
-    HoverTool,
-    LogColorMapper
-)
+from bokeh.models import LogColorMapper, LogTicker, ColorBar
+from bokeh.models import ColumnDataSource, HoverTool
 
 us_states = us_states.data.copy()
 counties = {
@@ -83,13 +79,17 @@ hover2.point_policy = "follow_mouse"
 hover2.tooltips = [
     ("(x,y)","($x2, $y2)"),
 ]
+
+output_file('color_bar.html')
+color_mapper = LogColorMapper(palette="Viridis256", low=1, high=5)
+color_bar = ColorBar(color_mapper=color_mapper, ticker=LogTicker(),
+                     label_standoff=12, border_line_color=None, location=(0,0))
+p.add_layout(color_bar, 'right')
+
 output_file("slider.html")
 
 p1 = p
 tab1 = Panel(child=p1, title="Map1")
-
 tab2 = Panel(child=p2, title="Map2")
-
 tabs = Tabs(tabs=[ tab1, tab2 ])
-
 show(tabs)
