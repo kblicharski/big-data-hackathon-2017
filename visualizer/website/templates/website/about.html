@@ -1,5 +1,83 @@
 {% extends "website/base.html" %}
+{% load static %}
+
+{% block title %}
+About MediData
+{% endblock title %}
 
 {% block content %}
-<h1>About Page</h1>
+<h1>About MediData</h1>
+<p>In the United States, total healthcare spending for 2016 reached nearly $3.4 trillion. Spending is only going to increase - according to the Centers for Medicare and Medicaid Services, U.S. health care spending is projected to reach nearly $5.5 trillion by 2025. This would consist of over 20% of the GPD of the United States. This would put the U.S. at the top of healthcare spending by GDP in the world, yet our healthcare outcomes remain worse than less wealthy nations.</p>
+<p>MediData is a project which analyzed the Inpatient Prospective Payment System (IPPS) dataset found on the <a href="https://data.cms.gov/Medicare-Inpatient/Inpatient-Prospective-Payment-System-IPPS-Provider/97k6-zzx3">Centers for Medicare & Medicaid Services website.</a></p>
+<p>We wanted to determine if there were any interesting trends to be found regarding healthcare spending. We imagined that certain regional trends could be discovered, even after normalizing by population. Through our analysis, cost differences illustrated by the graphs revealed that more populous states experience higher costs per person. We believe that this is because the higher population density increases incidence of sickness, counteracting any effects from economies of scale.</p>
+<p>
+
+<br>
+<h1>About Us</h1>
+<ul>
+    <div class="row">
+        <div class="col-xs-4">
+            <h3>Olivia</h3>
+            <ul>
+                <li>Sophomore</li>
+                <li>Biomedical Engineering</li>
+                <li>The unstoppable force keeping the team moving</li>
+            </ul>
+        </div>
+        <div class="col-xs-8">
+            <img src="{% static "website/img/olivia.jpg" %}" height="300px">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4">
+            <h3>Kevin</h3>
+            <ul>
+                <li>Junior</li>
+                <li>Computer Science and Engineering</li>
+                <li>Really needs more sleep</li>
+            </ul>
+        </div>
+        <div class="col-xs-8">
+            <img src="{% static "website/img/kevin.jpg" %}" height="300px">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4">
+            <h3>Alex</h3>
+            <ul>
+                <li>Sophomore</li>
+                <li>Electrical and Computer Engineering</li>
+                <li>Data analysis legend</li>
+            </ul>
+        </div>
+        <div class="col-xs-8">
+            <img src="{% static "website/img/alex.png" %}" height="300px">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4">
+            <h3>Zain</h3>
+            <ul>
+                <li>Sophomore</li>
+                <li>Computer Science and Engineering</li>
+                <li>Team Mascot</li>
+            </ul>
+        </div>
+        <div class="col-xs-8">
+            <img src="{% static "website/img/zain.jpg" %}" height="300px">
+        </div>
+    </div>
+</ul>
+<br>
+
+<h1>Made with &#10084 using:</h1>
+<div class="row">
+    <div class="col-xs-12">
+        <img src="{% static "website/img/python_logo.png" %}" width="300px" height="100px">
+        <img src="{% static "website/img/django_logo.png" %}" width="400px" height="139px">
+        <img src="{% static "website/img/bootstrap_logo.png" %}" width="240px" height="120px">
+        <img src="{% static "website/img/pandas_logo.png" %}">
+        <img src="{% static "website/img/bokeh_logo.png" %}" width="280px" height="120px">
+    </div>
+</div>
 {% endblock content %}
