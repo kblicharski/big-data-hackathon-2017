@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}Home {% endblock title %}</title>
+        {% block head_meta %}
+            {% block head_meta_charset %}
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            {% endblock head_meta_charset %}
+            {% block head_meta_contentlanguage %}
+                <meta http-equiv="Content-Language" value="en-US" />
+            {% endblock head_meta_contentlanguage %}
+            {% block head_meta_viewport %}
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            {% endblock head_meta_viewport %}
+        {% endblock head_meta %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-0.12.9.min.css" type="text/css" />
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        {% include "website/header.html" %}
+        <div class="container" style="padding-top: 60px">
+            <div class="row">
+                <div class="col-xs-6">
+                    {% block content %}
+                    {% endblock content %}
+                </div>
+                <div class="col-xs-6" style="padding-left: 50px">
+                    <h1>Analysis</h1>
+                    <br>
+                    <div class="well">
+                        <p>Test</p>
+                        {% block explanation %}
+                        {% endblock explanation %}
+                    </div>
+                </div>
+        </div>
+</body>
+</html>
