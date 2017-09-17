@@ -7,6 +7,7 @@ from bokeh.models.widgets import Panel, Tabs
 from bokeh.io import output_file, show
 from bokeh.models import LogColorMapper, LogTicker, ColorBar
 from bokeh.models import ColumnDataSource, HoverTool
+from bokeh.palettes import Viridis6 as palette # @UnresolvedImport
 
 us_states = us_states.data.copy()
 counties = {
@@ -25,10 +26,12 @@ county_ys=[us_counties[code]["lats"] for code in us_counties if us_counties[code
 county_names = [county['name'] for county in us_counties.values()]
 # county_rates = [unemployment[county_id] for county_id in counties]
 
-colors = ["#F1EEF6", "#D4B9DA", "#C994C7", "#DF65B0", "#DD1C77", "#980043"]
+# colors = ["#FF3030", "#FF9E9E", "#FFF2F2", "#B1B5F9", "#5159EF", "#000CFC"]
+# colors = pal._PalettesModule.viridis()[6]
 
-county_colors = []
-# color_mapper = LogColorMapper(palette=colors)
+county_colors = LogColorMapper(palette=palette)
+color_mapper = LogColorMapper(palette=palette)
+colors = county_colors[6]
 for county_id in us_counties:
     if us_counties[county_id]["state"] in ["ak", "hi", "pr", "gu", "vi", "mp", "as"]:
         continue
@@ -81,7 +84,7 @@ hover2.tooltips = [
 ]
 
 output_file('color_bar.html')
-color_mapper = LogColorMapper(palette="Viridis256", low=1, high=5)
+color_mapper = LogColorMapper(palette=palette, low=1, high=5)
 color_bar = ColorBar(color_mapper=color_mapper, ticker=LogTicker(),
                      label_standoff=12, border_line_color=None, location=(0,0))
 p.add_layout(color_bar, 'right')
