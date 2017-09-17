@@ -21,5 +21,8 @@ from website import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^about/', views.about, name='about'),
+    url(r'^visualization/', views.visualization, name='visualization'),
+    url(r'^analysis/', views.analysis, name='analysis'),
     url(r'^admin/', admin.site.urls)
 ]
