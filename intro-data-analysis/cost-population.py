@@ -34,9 +34,10 @@ def convert_dicts_to_csv(dictionary_of_dictionaries):
 
     with open('Data/filename.csv', 'w') as csv_file:
         csvwriter = csv.writer(csv_file, delimiter='\t')
+        csvwriter.writerow(["State,Procedure,AvgCost,AvgMedicareCost"])
         for individual_states in dictionary_of_dictionaries:
             for procedures in dictionary_of_dictionaries[individual_states]:
-                csvwriter.writerow([individual_states, ",", procedures, ",", dictionary_of_dictionaries[individual_states][procedures]])
+                csvwriter.writerow([individual_states, ",", procedures, ",", dictionary_of_dictionaries[individual_states][procedures][0],",",dictionary_of_dictionaries[individual_states][procedures][1]])
 
 
 # Find population of cases per state and put into dict
@@ -49,9 +50,10 @@ operations = df2['DRG Definition']
 operation_occurrences = count_occurrences(operations)
 sorted_operations = sorted(operation_occurrences.items(), key=lambda x: x[1])
 
-# Isolate Procedures and Average Payment for specific procedure columns (will use indexes)
+# Isolate Procedures/Average Payment/Medicare Payment for specific procedure columns (will use indexes)
 drg_defs = df2['DRG Definition']
 avg_costs = df2[' Average Total Payments ']
+med_costs = df2['Average Medicare Payments']
 
 # Create dict of dicts to store:
 # {State: {Procedure: Avg Cost per person of state for this specific procedure}}
@@ -63,12 +65,19 @@ for state in state_content:
     # Strip commas and create sub dicts of {Procedure: AvgCostPerPersonInState}
     for index, operation in drg_defs.items():
         operation = operation.replace(",", "")
-        if operation in state_op_cost[state].values():
-            cost_inter = avg_costs[index].replace(",", "")
-            cost_end = cost_inter[1:]
-            state_op_cost[state][operation] += cost_end/pop
-        else:
-            cost_inter = avg_costs[index].replace(",", "")
-            cost_end = cost_inter[1:]
-            state_op_cost[state][operation] = float(cost_end) / float(pop)
 
+        cost_inter = avg_costs[index].replace(",", "")
+        cost_end = cost_inter[1:]
+
+        med_inter = med_costs[index].replace(",", "")
+        med_end = med_inter[1:]
+
+        if operation in state_op_cost[state].values():
+            state_op_cost[state][operation][0] += float(cost_end)/float(pop)
+            state_op_cost[state][operation][1] += float(med_end) / float(pop)
+        else:
+            state_op_cost[state][operation] = [0, 0]
+            state_op_cost[state][operation][0] = float(cost_end) / float(pop)
+            state_op_cost[state][operation][1] = float(med_end) / float(pop)
+
+convert_dicts_to_csv(state_op_cost)
