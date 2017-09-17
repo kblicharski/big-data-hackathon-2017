@@ -21,7 +21,21 @@
     </head>
     <body>
         {% include "website/header.html" %}
-        {% block content %}
-        {% endblock content %}
+        <div class="container" style="padding-top: 60px">
+            <div class="row">
+                <div class="col-xs-6">
+                    {% block content %}
+                    {% endblock content %}
+                </div>
+                <div class="col-xs-6" style="padding-left: 50px">
+                    <h1>Analysis</h1>
+                    <br>
+                    <div class="well">
+                        <p>Test</p>
+                        {% block explanation %}
+                        {% endblock explanation %}
+                    </div>
+                </div>
+        </div>
 </body>
 </html>
