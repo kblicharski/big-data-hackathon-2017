@@ -58,7 +58,7 @@ source2 = ColumnDataSource(data=dict(
 ))
 
 p = figure(title="US Unemployment 2009", tools=tools,toolbar_location="left",
-    plot_width=1100, plot_height=700)
+    plot_width=1300, plot_height=800)
 p.patches('x', 'y', source=source)
 p.patches(county_xs, county_ys, fill_color=county_colors, fill_alpha=0.7,
     line_color="white", line_width=0.5)
