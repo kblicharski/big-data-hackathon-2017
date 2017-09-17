@@ -29,11 +29,22 @@ def count_occurrences(items: list) -> dict:
             occurrences[item] = 1
     return occurrences
 
+
+def convert_dicts_to_csv(dictionary_of_dictionaries):
+    # Apparently don't need this but don't want to risk it yet
+    # dictionary_of_dictionaries_formatted = json.dumps(dictionary_of_dictionaries, sort_keys=True, indent=4, separators=(',', '\t'))
+
+    with open('Data/filename.csv', 'w') as csv_file:
+        csvwriter = csv.writer(csv_file, delimiter='\t')
+        for individual_states in dictionary_of_dictionaries:
+            for procedures in dictionary_of_dictionaries[individual_states]:
+                csvwriter.writerow([individual_states, ",", procedures, ",", dictionary_of_dictionaries[individual_states][procedures]])
+
+
 state_content = readfile('Data/state.txt')
 pop_content = readfile('Data/state_population.txt')
 
 state_pop = dict(zip(state_content, pop_content))
-#state_pop = [list(a) for a in zip(state_content, pop_content)]
 
 operations = df2['DRG Definition']
 operation_occurrences = count_occurrences(operations)
@@ -58,10 +69,3 @@ for state in state_content:
             cost_end = cost_inter[1:]
             state_op_cost[state][operation] = float(cost_end) / float(pop)
 
-state_op_cost_formatted = json.dumps(state_op_cost, sort_keys=True, indent=4, separators=(',', '\t'))
-
-with open('Data/cost_op_per_person_per_state.csv', 'w') as csv_file:
-    csvwriter = csv.writer(csv_file, delimiter='\t')
-    for individual_states in state_op_cost:
-        for procedures in state_op_cost[individual_states]:
-            csvwriter.writerow([individual_states, ",", procedures, ",", state_op_cost[individual_states][procedures]])
