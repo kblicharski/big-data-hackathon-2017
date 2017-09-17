@@ -1,4 +1,6 @@
 import pandas as pd
+import json
+import csv
 import numpy as np
 
 data = pd.read_csv(
@@ -46,8 +48,9 @@ for state in state_content:
     pop = state_pop[state]
 
     for index, operation in drg_defs.items():
+        operation = operation.replace(",", "")
         if operation in state_op_cost[state].values():
-            cost_inter = avg_costs[index].replace(",","")
+            cost_inter = avg_costs[index].replace(",", "")
             cost_end = cost_inter[1:]
             state_op_cost[state][operation] += cost_end/pop
         else:
@@ -55,3 +58,10 @@ for state in state_content:
             cost_end = cost_inter[1:]
             state_op_cost[state][operation] = float(cost_end) / float(pop)
 
+state_op_cost_formatted = json.dumps(state_op_cost, sort_keys=True, indent=4, separators=(',', '\t'))
+
+with open('Data/cost_op_per_person_per_state.csv', 'w') as csv_file:
+    csvwriter = csv.writer(csv_file, delimiter='\t')
+    for individual_states in state_op_cost:
+        for procedures in state_op_cost[individual_states]:
+            csvwriter.writerow([individual_states, ",", procedures, ",", state_op_cost[individual_states][procedures]])
